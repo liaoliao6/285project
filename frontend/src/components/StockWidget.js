@@ -1,45 +1,4 @@
 import React from 'react';
-
-//export default class StockWidget extends Component {
-//
-//
-//    componentDidMount() {
-//        const script = document.createElement('script');
-//        script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-hotlists.js';
-//        script.async = true;
-//        script.innerHTML = JSON.stringify({
-//            "colorTheme": "light",
-//            "dateRange": "1m",
-//            "exchange": "US",
-//            "showChart": true,
-//            "locale": "en",
-//            "width": "100%",
-//            "height": "100%",
-//            "largeChartUrl": "",
-//            "isTransparent": false,
-//            "plotLineColorGrowing": "rgba(33, 150, 243, 1)",
-//            "plotLineColorFalling": "rgba(33, 150, 243, 1)",
-//            "gridLineColor": "rgba(240, 243, 250, 1)",
-//            "scaleFontColor": "rgba(120, 123, 134, 1)",
-//            "belowLineFillColorGrowing": "rgba(33, 150, 243, 0.12)",
-//            "belowLineFillColorFalling": "rgba(33, 150, 243, 0.12)",
-//            "symbolActiveColor": "rgba(33, 150, 243, 0.12)"
-//        });
-//        document.getElementById("stockWidget").appendChild(script);
-//    }
-//
-//    render() {
-//        return(
-//            <div id="stockWidget" className="stock-widget-container">
-//                <div className="tradingview-widget-container">
-//                    <div className="tradingview-widget-container__widget">
-//                    </div>
-//                </div>
-//            </div>
-//        );
-//    }
-//}
-
 import Plot from 'react-plotly.js';
 
 class StockWidget extends React.Component {
@@ -58,11 +17,23 @@ class StockWidget extends React.Component {
     fetchStock() {
         const pointerToThis = this;
         console.log(pointerToThis);
-        //const API_KEY = 'HGJWFG4N8AQ66ICD';
-        //let StockSymbol = 'FB';
-        //let API_Call = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${StockSymbol}&outputsize=compact&apikey=${API_KEY}`;
-        let stockChartXValuesFunction = [];
-        let stockChartYValuesFunction = [];
+
+        let stockChartAAPLValuesFunction = [];
+        let stockChartTSLAValuesFunction = [];
+        let stockChartADBEValuesFunction = [];
+        let stockChartABNBValuesFunction = [];
+        let stockChartASANValuesFunction = [];
+        let stockChartAMDValuesFunction = [];
+        let stockChartVOOValuesFunction = [];
+        let stockChartVTIValuesFunction = [];
+        let stockChartARKKValuesFunction = [];
+        let stockChartNVDAValuesFunction = [];
+        let stockChartTWLOValuesFunction = [];
+        let stockChartCSCOValuesFunction = [];
+        let stockChartINTCValuesFunction = [];
+        let stockChartDISValuesFunction = [];
+        let stockChartCHWYValuesFunction = [];
+
 
         //fetch(API_Call)
         fetch('/weeklytrend', {
@@ -81,15 +52,89 @@ class StockWidget extends React.Component {
                 function(data) {
                     console.log(data);
 
+
                     for (var key in data['total_weekly_trend_by_stock']) {
-                        stockChartXValuesFunction.push(key);
-                        stockChartYValuesFunction.push(data['total_weekly_trend_by_stock'][key][1]);
+                        console.log(key);
+                        if (key === 'AAPL')
+                            console.log("fsads");
                     }
 
-                    // console.log(stockChartXValuesFunction);
+                    for (var val1 in data['total_weekly_trend_by_stock']['AAPL']) {
+                        stockChartAAPLValuesFunction.push(data['total_weekly_trend_by_stock']['AAPL'][val1]);
+                    }
+
+                    for (var val2 in data['total_weekly_trend_by_stock']['TSLA']) {
+                        stockChartTSLAValuesFunction.push(data['total_weekly_trend_by_stock']['TSLA'][val2]);
+                    }
+
+                    for (var val3 in data['total_weekly_trend_by_stock']['ADBE']) {
+                        stockChartADBEValuesFunction.push(data['total_weekly_trend_by_stock']['ADBE'][val3]);
+                    }
+
+                    for (var val4 in data['total_weekly_trend_by_stock']['ABNB']) {
+                        stockChartABNBValuesFunction.push(data['total_weekly_trend_by_stock']['ABNB'][val4]);
+                    }
+
+                    for (var val5 in data['total_weekly_trend_by_stock']['ASAN']) {
+                        stockChartASANValuesFunction.push(data['total_weekly_trend_by_stock']['ASAN'][val5]);
+                    }
+
+                    for (var val6 in data['total_weekly_trend_by_stock']['AMD']) {
+                        stockChartAMDValuesFunction.push(data['total_weekly_trend_by_stock']['AMD'][val6]);
+                    }
+
+                    for (var val7 in data['total_weekly_trend_by_stock']['VOO']) {
+                        stockChartVOOValuesFunction.push(data['total_weekly_trend_by_stock']['VOO'][val7]);
+                    }
+
+                    for (var val8 in data['total_weekly_trend_by_stock']['VTI']) {
+                        stockChartVTIValuesFunction.push(data['total_weekly_trend_by_stock']['VTI'][val8]);
+                    }
+
+                    for (var val9 in data['total_weekly_trend_by_stock']['ARKK']) {
+                        stockChartARKKValuesFunction.push(data['total_weekly_trend_by_stock']['ARKK'][val9]);
+                    }
+
+                    for (var val10 in data['total_weekly_trend_by_stock']['NVDA']) {
+                        stockChartNVDAValuesFunction.push(data['total_weekly_trend_by_stock']['NVDA'][val10]);
+                    }
+
+                    for (var val11 in data['total_weekly_trend_by_stock']['TWLO']) {
+                        stockChartTWLOValuesFunction.push(data['total_weekly_trend_by_stock']['TWLO'][val11]);
+                    }
+
+                    for (var val12 in data['total_weekly_trend_by_stock']['CSCO']) {
+                        stockChartCSCOValuesFunction.push(data['total_weekly_trend_by_stock']['CSCO'][val12]);
+                    }
+
+                    for (var val13 in data['total_weekly_trend_by_stock']['INTC']) {
+                        stockChartINTCValuesFunction.push(data['total_weekly_trend_by_stock']['INTC'][val13]);
+                    }
+
+                    for (var val14 in data['total_weekly_trend_by_stock']['DIS']) {
+                        stockChartDISValuesFunction.push(data['total_weekly_trend_by_stock']['DIS'][val14]);
+                    }
+
+                    for (var val15 in data['total_weekly_trend_by_stock']['CHWY']) {
+                        stockChartCHWYValuesFunction.push(data['total_weekly_trend_by_stock']['CHWY'][val15]);
+                    }
+
                     pointerToThis.setState({
-                        stockChartXValues: stockChartXValuesFunction,
-                        stockChartYValues: stockChartYValuesFunction
+                        stockChartAAPLValues: stockChartAAPLValuesFunction,
+                        stockChartTSLAValues: stockChartTSLAValuesFunction,
+                        stockChartADBEValues: stockChartADBEValuesFunction,
+                        stockChartABNBValues: stockChartABNBValuesFunction,
+                        stockChartASANValues: stockChartASANValuesFunction,
+                        stockChartAMDValues: stockChartAMDValuesFunction,
+                        stockChartVOOValues: stockChartVOOValuesFunction,
+                        stockChartVTIValues: stockChartVTIValuesFunction,
+                        stockChartARKKValues: stockChartARKKValuesFunction,
+                        stockChartNVDAValues: stockChartNVDAValuesFunction,
+                        stockChartTWLOValues: stockChartTWLOValuesFunction,
+                        stockChartCSCOValues: stockChartCSCOValuesFunction,
+                        stockChartINTCValues: stockChartINTCValuesFunction,
+                        stockChartDISValues: stockChartDISValuesFunction,
+                        stockChartCHWYValues: stockChartCHWYValuesFunction
                     });
                 }
             )
@@ -103,14 +148,127 @@ class StockWidget extends React.Component {
                     data={[
                         {
                             //x: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-                            x: this.state.stockChartXValues,
-                            y: this.state.stockChartYValues,
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartAAPLValues,
                             type: 'scatter',
+                            name: 'AAPL',
                             mode: 'lines+markers',
                             marker: {color: 'red'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartTSLAValues,
+                            type: 'scatter',
+                            name: 'TSLA',
+                            mode: 'lines+markers',
+                            marker: {color: 'blue'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartADBEValues,
+                            type: 'scatter',
+                            name: 'ADBE',
+                            mode: 'lines+markers',
+                            marker: {color: 'green'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartABNBValues,
+                            type: 'scatter',
+                            name: 'ABNB',
+                            mode: 'lines+markers',
+                            marker: {color: 'yellow'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartASANValues,
+                            type: 'scatter',
+                            name: 'ASAN',
+                            mode: 'lines+markers',
+                            marker: {color: 'black'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartAMDValues,
+                            type: 'scatter',
+                            name: 'AMD',
+                            mode: 'lines+markers',
+                            marker: {color: '#ff7f0e'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartVOOValues,
+                            type: 'scatter',
+                            name: 'VOO',
+                            mode: 'lines+markers',
+                            marker: {color: '#9467bd'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartVTIValues,
+                            type: 'scatter',
+                            name: 'VTI',
+                            mode: 'lines+markers',
+                            marker: {color: '#7f7f7f'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartARKKValues,
+                            type: 'scatter',
+                            name: 'ARKK',
+                            mode: 'lines+markers',
+                            marker: {color: '#d62728'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartNVDAValues,
+                            type: 'scatter',
+                            name: 'NVDA',
+                            mode: 'lines+markers',
+                            marker: {color: '#17becf'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartTWLOValues,
+                            type: 'scatter',
+                            name: 'TWLO',
+                            mode: 'lines+markers',
+                            marker: {color: '#8c564b'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartCSCOValues,
+                            type: 'scatter',
+                            name: 'CSCO',
+                            mode: 'lines+markers',
+                            marker: {color: '#bcbd22'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartINTCValues,
+                            type: 'scatter',
+                            name: 'INTC',
+                            mode: 'lines+markers',
+                            marker: {color: '#e377c2'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartDISValues,
+                            type: 'scatter',
+                            name: 'DIS',
+                            mode: 'lines+markers',
+                            marker: {color: '#1f77b4'},
+                        },
+                        {
+                            x: [1,2,3,4,5,6,7],
+                            y: this.state.stockChartCHWYValues,
+                            type: 'scatter',
+                            name: 'CHWY',
+                            mode: 'lines+markers',
+                            marker: {color: '#2ca02c'},
                         }
                     ]}
-                    layout={{width: 720, height: 440, title: 'A Fancy Plot'}}
+                    layout={{width: 900, height: 490, title: 'Weekly Report'}}
                 />
             </div>
         )
