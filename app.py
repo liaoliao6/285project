@@ -9,7 +9,6 @@ app = Flask(__name__)
 CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-
 @app.route('/')
 def index():
     return "Hello World!"
@@ -29,6 +28,14 @@ def suggest_stocks():
     allocations = StockManager.allocate_stocks(amount, strategies)
     
     return json.dumps(allocations), 200
+
+
+@app.route('/weeklytrend', methods = ["GET"])
+def get_total_weekly_trend():
+    total_strategies = ["Ethical Investing", "Growth Investing", "Index Investing", "Quality Investing", "Value Investing"]
+    trend = StockManager.get_total_weekly_trend(total_strategies)
+    return json.dumps(trend), 200
+
 
 @app.route("/")
 def serve_template():

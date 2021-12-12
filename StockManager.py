@@ -53,41 +53,47 @@ def allocate_stocks(amount, strategies):
         cnt += 1
         if cnt == 3:
             cnt = 0
-    weekly_trend = get_weekly_trend(strategies, allocation)
-    total_strategies = ["Ethical Investing", "Growth Investing", "Index Investing", "Quality Investing", "Value Investing"]
-    total_weekly_trend = get_weekly_trend(total_strategies, allocation)
+    weekly_trend = get_weekly_trend(strategies)
     #print(json.dumps(weekly_trend, indent=4, sort_keys=True))
     weekly_trend_by_stock = {}
-    total_weekly_trend_by_stock = {}
     for stock_trend in weekly_trend["total"]:
         symbol = stock_trend["symbol"]
         price_trend = []
         for h in stock_trend["historical"]:
             price_trend.append(h["close"])
         weekly_trend_by_stock[symbol] = price_trend
+    return {"allocation": allocation, "weekly_trend": weekly_trend, "pie_chart_data": pie_chart_data, "weekly_trend_by_stock":weekly_trend_by_stock}
+
+def get_total_weekly_trend(strategies):
+    total_weekly_trend = get_weekly_trend(strategies)
+    total_weekly_trend_by_stock = {}
     for stock_trend in total_weekly_trend["total"]:
         symbol = stock_trend["symbol"]
         price_trend = []
         for h in stock_trend["historical"]:
             price_trend.append(h["close"])
         total_weekly_trend_by_stock[symbol] = price_trend
-    return {"allocation": allocation, "weekly_trend": weekly_trend, "pie_chart_data": pie_chart_data, "weekly_trend_by_stock":weekly_trend_by_stock, "total_weekly_trend_by_stock":total_weekly_trend_by_stock}
+    return {"total_weekly_trend_by_stock":total_weekly_trend_by_stock}
 
 
-def get_weekly_trend(strategies, allocation):
+
+
+def get_weekly_trend(strategies):
     weekly_trend = {"total": []}
     base_url = 'https://financialmodelingprep.com/api/v3/historical-price-full/'
     for strategy in strategies:
         for ticker in stocks.get(strategy):
-            #url = base_url + ticker + "?timeseries=5&apikey=3a807ad83b99593ca93f8d0345faf840"
-            #url = base_url + ticker + "?timeseries=5&apikey=f1fa7da309730cc09e181d12574aa259"
-            url = base_url + ticker + "?timeseries=5&apikey=562a470c33a1f9a926a4a3a61f42b3a1"
+            #url = base_url + ticker + "?timeseries=7&apikey=3a807ad83b99593ca93f8d0345faf840"
+            #url = base_url + ticker + "?timeseries=7&apikey=f1fa7da309730cc09e181d12574aa259"
+            url = base_url + ticker + "?timeseries=7&apikey=562a470c33a1f9a926a4a3a61f42b3a1"
             response = requests.get(url)
             if response.status_code != 200:
                 Exception("API Error")
             response_json = response.json()
             weekly_trend["total"].append(response_json)
     return weekly_trend
+
+
 
 
 def get_strategy_by_stock(ticker):
