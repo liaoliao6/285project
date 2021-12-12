@@ -20,7 +20,7 @@ def get_latest_price(strategies):
         for symbol in stocks[strategy]:
             #url_list.append(symbol + "?apikey=3a807ad83b99593ca93f8d0345faf840")
             #url_list.append(symbol + "?apikey=f1fa7da309730cc09e181d12574aa259")
-            url_list.append(symbol + "?apikey=562a470c33a1f9a926a4a3a61f42b3a1")
+            url_list.append(symbol + "?apikey=53bc90a1a34e677989ffe279440bcaa5")
     for url in url_list:
         response = requests.get(base_url + url)
         if response.status_code != 200:
@@ -33,7 +33,7 @@ def get_latest_price(strategies):
 
 def allocate_stocks(amount, strategies):
 
-    allocation = {}
+    allocation = []
     pie_chart_data = []
 
     # get the latest price
@@ -47,7 +47,7 @@ def allocate_stocks(amount, strategies):
     for ticker, meta in latest_price.items():
         stock_price = float(meta.get("price"))
         number_of_stocks = round(((stock_amount[cnt])/stock_price), 2)
-        allocation[ticker] = {"stocks": number_of_stocks, "price": stock_price, "strategy": meta.get("strategy")}
+        allocation.append({"name": ticker, "stocks": number_of_stocks, "price": stock_price, "strategy": meta.get("strategy")})
         value = round((number_of_stocks * stock_price), 2)
         pie_chart_data.append({"name": ticker, "value": value})
         cnt += 1
@@ -85,7 +85,7 @@ def get_weekly_trend(strategies):
         for ticker in stocks.get(strategy):
             #url = base_url + ticker + "?timeseries=7&apikey=3a807ad83b99593ca93f8d0345faf840"
             #url = base_url + ticker + "?timeseries=7&apikey=f1fa7da309730cc09e181d12574aa259"
-            url = base_url + ticker + "?timeseries=7&apikey=562a470c33a1f9a926a4a3a61f42b3a1"
+            url = base_url + ticker + "?timeseries=7&apikey=53bc90a1a34e677989ffe279440bcaa5"
             response = requests.get(url)
             if response.status_code != 200:
                 Exception("API Error")
