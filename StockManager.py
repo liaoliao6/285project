@@ -54,16 +54,24 @@ def allocate_stocks(amount, strategies):
         if cnt == 3:
             cnt = 0
     weekly_trend = get_weekly_trend(strategies, allocation)
+    total_strategies = ["Ethical Investing", "Growth Investing", "Index Investing", "Quality Investing", "Value Investing"]
+    total_weekly_trend = get_weekly_trend(total_strategies, allocation)
     #print(json.dumps(weekly_trend, indent=4, sort_keys=True))
     weekly_trend_by_stock = {}
+    total_weekly_trend_by_stock = {}
     for stock_trend in weekly_trend["total"]:
         symbol = stock_trend["symbol"]
         price_trend = []
         for h in stock_trend["historical"]:
             price_trend.append(h["close"])
         weekly_trend_by_stock[symbol] = price_trend
-    #print("weekly_trend_by_stock = ", weekly_trend_by_stock)
-    return {"allocation": allocation, "weekly_trend": weekly_trend, "pie_chart_data": pie_chart_data, "weekly_trend_by_stock":weekly_trend_by_stock}
+    for stock_trend in total_weekly_trend["total"]:
+        symbol = stock_trend["symbol"]
+        price_trend = []
+        for h in stock_trend["historical"]:
+            price_trend.append(h["close"])
+        total_weekly_trend_by_stock[symbol] = price_trend
+    return {"allocation": allocation, "weekly_trend": weekly_trend, "pie_chart_data": pie_chart_data, "weekly_trend_by_stock":weekly_trend_by_stock, "total_weekly_trend_by_stock":total_weekly_trend_by_stock}
 
 
 def get_weekly_trend(strategies, allocation):
@@ -86,3 +94,4 @@ def get_strategy_by_stock(ticker):
     for strategy, tickers in stocks.items():
         if ticker in tickers:
             return strategy
+
