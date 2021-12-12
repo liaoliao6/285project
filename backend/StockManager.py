@@ -4,10 +4,10 @@ from collections import defaultdict
 
 stocks = {
     'Ethical Investing': ["AAPL", "TSLA", "ADBE"],
-    'Growth Investing': ["OXLC", "ECC", "AMD"],
-    'Index Investing': ["VOO", "VTI", "ILTB"],
-    'Quality Investing': ["NVDA", "MU", "CSCO"],
-    'Value Investing': ["INTC", "BABA", "GE"]
+    'Growth Investing': ["ABNB", "ASAN", "AMD"],
+    'Index Investing': ["VOO", "VTI", "ARKK"],
+    'Quality Investing': ["NVDA", "TWLO", "CSCO"],
+    'Value Investing': ["INTC", "DIS", "CHWY"]
 }
 
 
@@ -52,10 +52,6 @@ def allocate_stocks(amount, strategies):
         change = (per_stock_amount + change) - (stock_price * number_of_stocks)
         allocation[ticker] = {"stocks": number_of_stocks, "price": stock_price, "strategy": meta.get("strategy")}
         pie_chart_data.append({"name": ticker, "value": number_of_stocks * stock_price})
-
-    #print({"allocation": allocation, "weekly_trend": get_weekly_trend(strategies, allocation),
-    #        "pie_chart_data": pie_chart_data})
-    print("####### pie_chart = ", pie_chart_data)
     return {"allocation": allocation, "weekly_trend": get_weekly_trend(strategies, allocation),
             "pie_chart_data": pie_chart_data}
 
