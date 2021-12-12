@@ -1,10 +1,14 @@
 from flask import Flask, jsonify, request, render_template
 import requests
 import json
-import StockSuggestion
+import StockManager
+from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route('/')
 def index():
@@ -22,11 +26,22 @@ def suggest_stocks():
     if len(strategies) > 2:
         return json.dumps({"error": "Maximum two strategies can be selected together"}), 500
 
-    allocations = StockSuggestion.suggest_stocks(amount, strategies)
+    allocations = StockManager.allocate_stocks(amount, strategies)
     
     return json.dumps(allocations), 200
-    
+
+@app.route("/")
+def serve_template():
+    return render_template('index.html')
+
+
+
+@app.route("/dashboard")
+def serve_template_dashboard():
+    return render_template('index.html')
+
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port = 5000, debug=True)
     
