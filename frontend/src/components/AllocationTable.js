@@ -33,7 +33,7 @@ class AllocationTable extends React.Component{
         ]
         return (
             <Layout>
-                <Table columns={column} dataSource={data.allocations} pagination={false} />
+                <Table columns={column} dataSource={data.allocations} pagination={false} size='small'/>
             </Layout>
 
         )

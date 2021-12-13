@@ -18,9 +18,9 @@ def get_latest_price(strategies):
     url_list = []
     for strategy in strategies:
         for symbol in stocks[strategy]:
-            #url_list.append(symbol + "?apikey=3a807ad83b99593ca93f8d0345faf840")
+            url_list.append(symbol + "?apikey=89eb39aee9a1fccba26e8f51df8e663f")
             #url_list.append(symbol + "?apikey=f1fa7da309730cc09e181d12574aa259")
-            url_list.append(symbol + "?apikey=c835673798b4e8c0721c0ea76ddeb80e")
+#             url_list.append(symbol + "?apikey=f1fa7da309730cc09e181d12574aa259")
     for url in url_list:
         response = requests.get(base_url + url)
         if response.status_code != 200:
@@ -55,14 +55,29 @@ def allocate_stocks(amount, strategies):
             cnt = 0
     weekly_trend = get_weekly_trend(strategies)
     #print(json.dumps(weekly_trend, indent=4, sort_keys=True))
-    weekly_trend_by_stock = {}
+    weekly_trend_by_stock = []
+
     for stock_trend in weekly_trend["total"]:
         symbol = stock_trend["symbol"]
         price_trend = []
         for h in stock_trend["historical"]:
             price_trend.append(h["close"])
-        weekly_trend_by_stock[symbol] = price_trend
-    return {"allocation": allocation, "weekly_trend": weekly_trend, "pie_chart_data": pie_chart_data, "weekly_trend_by_stock":weekly_trend_by_stock}
+        weekly_trend_by_stock.append({"name" : symbol, "trend" : price_trend})
+    print(weekly_trend_by_stock)
+    new_weekly_trend_by_stock = []
+    today = datetime.today()
+    dates = [today + timedelta(days = i) for i in range(today.weekday() - 12, today.weekday() - 5)]
+    for date in dates:
+        temp_dict = {}
+        temp_dict['date'] = str(date.month) + '-' + str(date.day)
+        new_weekly_trend_by_stock.append(temp_dict)
+    j = -1
+    for d in new_weekly_trend_by_stock:
+        for i in range(len(weekly_trend_by_stock)):
+            d[weekly_trend_by_stock[i]['name']] = weekly_trend_by_stock[i]['trend'][j]
+        j -= 1
+
+    return {"allocation": allocation, "weekly_trend": weekly_trend, "pie_chart_data": pie_chart_data, "weekly_trend_by_stock":new_weekly_trend_by_stock}
 
 def get_total_weekly_trend(strategies):
     total_weekly_trend = get_weekly_trend(strategies)
@@ -83,9 +98,9 @@ def get_weekly_trend(strategies):
     base_url = 'https://financialmodelingprep.com/api/v3/historical-price-full/'
     for strategy in strategies:
         for ticker in stocks.get(strategy):
-            #url = base_url + ticker + "?timeseries=7&apikey=3a807ad83b99593ca93f8d0345faf840"
+            url = base_url + ticker + "?timeseries=7&apikey=89eb39aee9a1fccba26e8f51df8e663f"
             #url = base_url + ticker + "?timeseries=7&apikey=f1fa7da309730cc09e181d12574aa259"
-            url = base_url + ticker + "?timeseries=7&apikey=c835673798b4e8c0721c0ea76ddeb80e"
+#             url = base_url + ticker + "?timeseries=7&apikey=f1fa7da309730cc09e181d12574aa259"
             response = requests.get(url)
             if response.status_code != 200:
                 Exception("API Error")

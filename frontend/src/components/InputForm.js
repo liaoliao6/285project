@@ -1,10 +1,11 @@
 import React from 'react';
-import {Button, Form, InputNumber} from "antd";
+import {Button, Col, Form, InputNumber, Row} from "antd";
 import Checkbox from "antd/es/checkbox/Checkbox";
 import { Typography } from 'antd';
 import { suggest } from "../api/api";
 import AllocationTable from "./AllocationTable";
 import StockPieChart from "./StockPieChart";
+import ChosenWeeklyTrend from "./ChosenWeeklyTrend";
 
 class InputForm extends React.Component{
     constructor(props){
@@ -17,7 +18,9 @@ class InputForm extends React.Component{
             allocation: [],
             pie_chart_data: [],
             weekly_trend: [],
-            weekly_trend_by_stock: []
+            weekly_trend_by_stock: [],
+            error: false,
+            errMessage: ''
         };
 
     }
@@ -55,6 +58,9 @@ class InputForm extends React.Component{
                 weekly_trend_by_stock: response.weekly_trend_by_stock,
                 showGraph: true
             })
+        }).catch(error => {
+            console.log(error)
+            this.setState({error : true, errMessage: "Backend API no response!"})
         });
     };
 
@@ -70,7 +76,7 @@ class InputForm extends React.Component{
         return (
             <div className='input-form'>
                 <Typography className='Typography'>
-                    <Title level={3} className='title'>Welcome to Stock Advisor</Title>
+                    <Title level={4} className='title'>Welcome to Stock Advisor</Title>
                     <Paragraph className='subtitle'>
                         Please Enter your investment amount and chose your strategies
                     </Paragraph>
@@ -84,11 +90,14 @@ class InputForm extends React.Component{
 
                         <Form.Item
                             className='InputAmount'
-                            label="Money"
+                            label="Money(Minimum $5000)"
                             name="money"
-                            rules={[{required:true, message:'Please enter a number'}]}
+                            rules={[
+                                {required:true, message:'Minimum investment amount: 5000'}
+                            ]}
                         >
                             <InputNumber style={{width:'50%'}}
+                                         min={5000}
                                          defaultValue={this.state.amount}
                                          onChange={this.setAmount}
                             />
@@ -125,9 +134,20 @@ class InputForm extends React.Component{
                         <AllocationTable allocations={this.state.allocation} />
                         <hr/>
                         <strong>Investment Advice Pie Chart</strong>
-                        <StockPieChart piechartData={this.state.pie_chart_data} />
+                        <Row>
+                            <Col><StockPieChart piechartData={this.state.pie_chart_data} /></Col>
+                            <Col><ChosenWeeklyTrend data={this.state.weekly_trend_by_stock}/></Col>
+                        </Row>
+
                         <Button onClick={this.refreshPage}>Reset</Button>
                     </div>
+                }{this.state.error &&
+                    <div>
+                        <hr/>
+                        <strong style={{ color: 'red' }}>Warning: { this.state.errMessage} </strong><br/><br/>
+                        <Button onClick={this.refreshPage}>Reset</Button>
+                    </div>
+
                 }
             </div>
 

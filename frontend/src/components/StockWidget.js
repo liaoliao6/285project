@@ -1,12 +1,15 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
+import {weeklyTrend} from "../api/api";
 
 class StockWidget extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             stockChartXValues: [],
-            stockChartYValues: []
+            stockChartYValues: [],
+            error: false,
+            errMessage: ''
         }
     }
 
@@ -35,15 +38,7 @@ class StockWidget extends React.Component {
         let stockChartCHWYValuesFunction = [];
 
 
-        //fetch(API_Call)
-        fetch('/weeklytrend', {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(
+            weeklyTrend().then(
                 function(response) {
                     return response.json();
                 }
@@ -137,7 +132,10 @@ class StockWidget extends React.Component {
                         stockChartCHWYValues: stockChartCHWYValuesFunction
                     });
                 }
-            )
+            ).catch(error => {
+                console.log(error)
+                this.setState({error: true, errMessage: 'Backend API no response! Can not fetch the graph!'})
+            })
     }
 
     render() {
@@ -270,6 +268,12 @@ class StockWidget extends React.Component {
                     ]}
                     layout={{width: 900, height: 490, title: 'Weekly Report'}}
                 />
+                {this.state.error &&
+                    <div>
+                        <hr/>
+                        <strong style={{ color: 'red' }}>Warning: { this.state.errMessage} </strong><br/><br/>
+                    </div>
+                }
             </div>
         )
     }

@@ -9,7 +9,7 @@ class HomePage extends React.Component{
         return (
             <Layout>
                 <Row>
-                    <Col span={8} padding={10}><InputForm /></Col>
+                    <Col span={12} padding={10}><InputForm /></Col>
                     <Col span={12} padding={10}><div><StockWidget /></div></Col>
                 </Row>
 
