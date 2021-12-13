@@ -41,19 +41,6 @@ class InputForm extends React.Component{
         );
     };
 
-    handleReset = async () => {
-        await this.setState({
-            amount: 5000,
-            strategies: [],
-            loading: false,
-            showGraph: false,
-            allocation: [],
-            pie_chart_data: [],
-            weekly_trend: [],
-            weekly_trend_by_stock: []
-        })
-    }
-
     refreshPage() {
         window.location.reload(false);
     }
@@ -69,9 +56,6 @@ class InputForm extends React.Component{
                 showGraph: true
             })
         });
-        // this.props.actions.saveUserInput({amount: parseInt(this.state.amount), strategies:this.state.strategies}).then( () =>{
-        //     this.setState({"loading": false});
-        // });
     };
 
     render() {

@@ -20,7 +20,7 @@ def get_latest_price(strategies):
         for symbol in stocks[strategy]:
             #url_list.append(symbol + "?apikey=3a807ad83b99593ca93f8d0345faf840")
             #url_list.append(symbol + "?apikey=f1fa7da309730cc09e181d12574aa259")
-            url_list.append(symbol + "?apikey=53bc90a1a34e677989ffe279440bcaa5")
+            url_list.append(symbol + "?apikey=c835673798b4e8c0721c0ea76ddeb80e")
     for url in url_list:
         response = requests.get(base_url + url)
         if response.status_code != 200:
@@ -85,7 +85,7 @@ def get_weekly_trend(strategies):
         for ticker in stocks.get(strategy):
             #url = base_url + ticker + "?timeseries=7&apikey=3a807ad83b99593ca93f8d0345faf840"
             #url = base_url + ticker + "?timeseries=7&apikey=f1fa7da309730cc09e181d12574aa259"
-            url = base_url + ticker + "?timeseries=7&apikey=53bc90a1a34e677989ffe279440bcaa5"
+            url = base_url + ticker + "?timeseries=7&apikey=c835673798b4e8c0721c0ea76ddeb80e"
             response = requests.get(url)
             if response.status_code != 200:
                 Exception("API Error")
