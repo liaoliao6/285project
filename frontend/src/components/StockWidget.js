@@ -19,7 +19,6 @@ class StockWidget extends React.Component {
 
     fetchStock() {
         const pointerToThis = this;
-        console.log(pointerToThis);
 
         let stockChartAAPLValuesFunction = [];
         let stockChartTSLAValuesFunction = [];
@@ -45,11 +44,9 @@ class StockWidget extends React.Component {
             )
             .then(
                 function(data) {
-                    console.log(data);
 
 
                     for (var key in data['total_weekly_trend_by_stock']) {
-                        console.log(key);
                         if (key === 'AAPL')
                             console.log("fsads");
                     }

@@ -49,7 +49,6 @@ const data = [
 export default class ChosenWeeklyTrend extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {data: props}
     }
 
@@ -63,7 +62,7 @@ export default class ChosenWeeklyTrend extends React.Component {
         let zipped = stock_names.map(function(e, i) {
             return [e, '#' + rgb[i]];
         });
-        console.log(zipped)
+
         return (
             <div>
                 <LineChart

@@ -8,7 +8,6 @@ class StockPieChart extends React.Component{
     }
     render() {
         const {data} = this.state
-        console.log(data)
         const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#21618C', '#F4D03F'];
         const RADIAN = Math.PI / 180;
         const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
