@@ -1,7 +1,7 @@
 # CMPE 285 Team Project
 ### Team
-- Jingjing Bu
-- Cong Li
+- Jingjing Bu (014556282)
+- Cong Li (012351118)
 - Yuche Lin (015231775)
 - Jinfan Zhang (015443441)
 
