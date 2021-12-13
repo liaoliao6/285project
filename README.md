@@ -2,7 +2,7 @@
 ### Team
 - Jingjing Bu
 - Cong Li
-- Yuche Lin
+- Yuche Lin (015231775)
 - Jinfan Zhang (015443441)
 
 ## Installation & Get Started
