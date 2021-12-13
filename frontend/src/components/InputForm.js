@@ -133,10 +133,9 @@ class InputForm extends React.Component{
                         <strong>Investment Allocation Table</strong>
                         <AllocationTable allocations={this.state.allocation} />
                         <hr/>
-                        <strong>Investment Advice Pie Chart</strong>
                         <Row>
-                            <Col><StockPieChart piechartData={this.state.pie_chart_data} /></Col>
-                            <Col><ChosenWeeklyTrend data={this.state.weekly_trend_by_stock}/></Col>
+                            <Col><strong>Investment Advice Pie Chart</strong><StockPieChart piechartData={this.state.pie_chart_data} /></Col>
+                            <Col><strong>Stock Trend based on Strategies</strong><ChosenWeeklyTrend data={this.state.weekly_trend_by_stock}/></Col>
                         </Row>
 
                         <Button onClick={this.refreshPage}>Reset</Button>
