@@ -19,8 +19,6 @@ def get_latest_price(strategies):
     for strategy in strategies:
         for symbol in stocks[strategy]:
             url_list.append(symbol + "?apikey=89eb39aee9a1fccba26e8f51df8e663f")
-            #url_list.append(symbol + "?apikey=f1fa7da309730cc09e181d12574aa259")
-#             url_list.append(symbol + "?apikey=f1fa7da309730cc09e181d12574aa259")
     for url in url_list:
         response = requests.get(base_url + url)
         if response.status_code != 200:
@@ -36,10 +34,8 @@ def allocate_stocks(amount, strategies):
     allocation = []
     pie_chart_data = []
 
-    # get the latest price
     latest_price = get_latest_price(strategies)
 
-    # sort by desc price
     latest_price = {k: v for k, v in sorted(latest_price.items(), key=lambda item: item[1]["price"], reverse=True)}
     stock_amount1, stock_amount2, stock_amount3 = amount * 0.5, amount * 0.3, amount * 0.2
     cnt = 0
@@ -54,7 +50,6 @@ def allocate_stocks(amount, strategies):
         if cnt == 3:
             cnt = 0
     weekly_trend = get_weekly_trend(strategies)
-    #print(json.dumps(weekly_trend, indent=4, sort_keys=True))
     weekly_trend_by_stock = []
 
     for stock_trend in weekly_trend["total"]:
@@ -63,7 +58,6 @@ def allocate_stocks(amount, strategies):
         for h in stock_trend["historical"]:
             price_trend.append(h["close"])
         weekly_trend_by_stock.append({"name" : symbol, "trend" : price_trend})
-    print(weekly_trend_by_stock)
     new_weekly_trend_by_stock = []
     today = datetime.today()
     dates = [today + timedelta(days = i) for i in range(today.weekday() - 12, today.weekday() - 5)]
@@ -99,17 +93,12 @@ def get_weekly_trend(strategies):
     for strategy in strategies:
         for ticker in stocks.get(strategy):
             url = base_url + ticker + "?timeseries=7&apikey=89eb39aee9a1fccba26e8f51df8e663f"
-            #url = base_url + ticker + "?timeseries=7&apikey=f1fa7da309730cc09e181d12574aa259"
-#             url = base_url + ticker + "?timeseries=7&apikey=f1fa7da309730cc09e181d12574aa259"
             response = requests.get(url)
             if response.status_code != 200:
                 Exception("API Error")
             response_json = response.json()
             weekly_trend["total"].append(response_json)
     return weekly_trend
-
-
-
 
 def get_strategy_by_stock(ticker):
     for strategy, tickers in stocks.items():
