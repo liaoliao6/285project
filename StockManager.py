@@ -18,7 +18,7 @@ def get_latest_price(strategies):
     url_list = []
     for strategy in strategies:
         for symbol in stocks[strategy]:
-            url_list.append(symbol + "?apikey=89eb39aee9a1fccba26e8f51df8e663f")
+            url_list.append(symbol + "?apikey=5e46a24c274b0a3f3a27f46f34bf0bb8")
     for url in url_list:
         response = requests.get(base_url + url)
         if response.status_code != 200:
@@ -92,7 +92,7 @@ def get_weekly_trend(strategies):
     base_url = 'https://financialmodelingprep.com/api/v3/historical-price-full/'
     for strategy in strategies:
         for ticker in stocks.get(strategy):
-            url = base_url + ticker + "?timeseries=7&apikey=89eb39aee9a1fccba26e8f51df8e663f"
+            url = base_url + ticker + "?timeseries=7&apikey=5e46a24c274b0a3f3a27f46f34bf0bb8"
             response = requests.get(url)
             if response.status_code != 200:
                 Exception("API Error")
